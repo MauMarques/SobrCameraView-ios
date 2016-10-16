@@ -120,7 +120,7 @@ public class SobrCameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegat
         
         let dataOutput = AVCaptureVideoDataOutput()
         dataOutput.alwaysDiscardsLateVideoFrames = true
-        //        dataOutput.videoSettings = [kCVPixelBufferPixelFormatTypeKey: kCVPixelFormatType_32BGRA]
+        dataOutput.videoSettings = [kCVPixelBufferPixelFormatTypeKey: Int(kCVPixelFormatType_32BGRA)]
         dataOutput.setSampleBufferDelegate(self, queue: dispatch_get_main_queue())
         self.captureSession.addOutput(dataOutput)
         
@@ -381,9 +381,9 @@ public class SobrCameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegat
         
         switch self.imageFilter {
         case .BlackAndWhite:
-            image = self.contrastFilter(image)
-        default:
             image = self.enhanceFilter(image)
+        default:
+            image = self.contrastFilter(image)
         }
         
         if self.borderDetectionEnabled {
